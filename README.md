@@ -13,7 +13,8 @@ Git 通过子模块来解决这个问题。 子模块允许你将一个 Git 仓�
 
 ## 使用方法
 
-git submodule add 
+1. git submodule add https://github.com/richard1015/wechat-common-sdk.git
+2. 在小程序app.js 根目录加入初始化代码
 
 ```javascript
   //app.js
