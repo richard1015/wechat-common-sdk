@@ -8,9 +8,12 @@
 class HttpUtil {
   /**
    * @param {string} host 请求地址
-   * @param {int} source 来源，1留学计算器，2，GPA,3高考选校5.留学要闻6.留学日历7.汇率计算器
+   * @param {int} source 小程序来源，1留学计算器，2，GPA,3高考选校5.留学要闻6.留学日历7.汇率计算器 8、留学攻略
    */
-  constructor({ host, source }) {
+  constructor({
+    host,
+    source
+  }) {
     this.host = host;
     this.source = source;
   }
@@ -38,7 +41,6 @@ class HttpUtil {
       }
     })
   }
-  get() { }
   /**
    * 
    * @param {string} cmd 请求命令
@@ -46,7 +48,13 @@ class HttpUtil {
    * @param {Boolean} loadingState 是否显示加载动画 
    * @param {Boolean} errMsgState 是否显示报错信息
    */
+  get(cmd, param, loadingState = true, errMsgState = true) {
+    return this.request('get', cmd, param, loadingState, errMsgState);
+  }
   post(cmd, param, loadingState = true, errMsgState = true) {
+    return this.request('post', cmd, param, loadingState, errMsgState);
+  }
+  request(method = 'post', cmd, param, loadingState, errMsgState) {
     var self = this;
     var url = `${self.host}${cmd}`;
     console.log(`${url}?${JSON.stringify(param)}`);
@@ -61,7 +69,7 @@ class HttpUtil {
       wx.request({
         url: url,
         data: param,
-        method: "post", // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+        method: method, // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
         header: {
           'content-type': 'application/x-www-form-urlencoded',
           'source': self.source, //来源，1留学计算器，2，GPA,3高考选校5.留学要闻6.留学日历7.汇率计算器
@@ -117,7 +125,7 @@ class HttpUtil {
                 }
               });
             }
-            reject(res.Msg);
+            reject(resData);
           }
         }
       });
