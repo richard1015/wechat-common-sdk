@@ -2,8 +2,8 @@
  * @Description: HttpUtil公用类
  * @Author: zhuzhida
  * @Date: 2018-11-06 18:35:07
- * @LastEditTime: 2018-11-07 09:59:16
- * @LastEditors: zhuzhida
+ * @LastEditTime: 2018-11-29 14:25:38
+ * @LastEditors: Please set LastEditors
  */
 class HttpUtil {
   /**
@@ -95,6 +95,7 @@ class HttpUtil {
             resData.Value = {};
             resData.Msg = "系统错误,请稍后重试！";
           } else if (response.statusCode == 200) {
+            /**   此区域逻辑处理 需结合api约定协议 统一修改  begin */
             if (response.data.head.code == 0) {
               if (response.data.body.code == 0) {
                 resData.State = 0;
@@ -110,6 +111,7 @@ class HttpUtil {
               resData.Value = response.data;
               resData.Msg = response.data.body.message;
             }
+            /**   此区域逻辑处理 需结合api约定协议 统一修改  end */
           }
           if (resData.State == 0) {
             resolve(resData);
