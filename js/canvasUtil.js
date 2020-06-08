@@ -62,6 +62,7 @@ class CanvasUtil {
    */
   static circleImg(ctx, img, x, y, r) {
     ctx.save();
+    ctx.beginPath();
     var d = 2 * r;
     var cx = x + r;
     var cy = y + r;
